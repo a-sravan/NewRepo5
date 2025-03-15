@@ -24,7 +24,7 @@ namespace EmployeeApi.Controllers
         }
 
         [HttpGet(Name = "Test call")]
-        public string TestGet()
+        public string Test()
         {
             return "true";
         }

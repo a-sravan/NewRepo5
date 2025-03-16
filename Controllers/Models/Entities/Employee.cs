@@ -2,12 +2,12 @@
 {
     public class Employee
     {
-        public Guid Id { get; set; }
-        public required string Name { get; set; }
-        public required string Email { get; set; }
-        public string? Phone { get; set; }
-        public string? Address { get; set; }
-        public Address? Adress { get; set; }
+        public int? EmpId { get; set; }
+        public string? EmpName { get; set; }
+        public string? EmpDept { get; set; }
+        public string? EmpPhone { get; set; }
+        public decimal? EmpSalary { get; set; }
+        //public Address? Adress { get; set; }
     }
 
 }

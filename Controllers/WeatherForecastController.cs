@@ -1,7 +1,8 @@
 using EmployeeApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
+using Pomelo.EntityFrameworkCore.MySql;
+using EmployeeApi.Controllers.Models.Entities;
 
 namespace EmployeeApi.Controllers
 {
@@ -23,10 +24,24 @@ namespace EmployeeApi.Controllers
             _applicationDBContext = applicationDBContext;
         }
 
-        [HttpGet(Name = "Test call")]
-        public string Test()
+        //[HttpGet(Name = "Test call")]
+        //public string Test()
+        //{
+        //    return "true";
+        //}
+
+        [HttpGet("GetEmployeesFromDB")]
+        public async Task<ActionResult<List<Employee>>> GetEmployeeDetailsFromDB()
         {
-            return "true";
+            try
+            {
+                var employees = await _applicationDBContext.Employees.ToListAsync();
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"{ex.Message},failed to fetch employee data");
+            }
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -41,19 +56,19 @@ namespace EmployeeApi.Controllers
             .ToArray();
         }
 
-        [HttpGet("StudentData")]
-        public async Task<ActionResult<List<Student>>> GetStudentDetails()
-        {
-            List<string> studentList = new List<string>();
-            try
-            {
-                var studentsData = await _applicationDBContext.Students.ToListAsync();
-                return Ok(studentsData);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"{ex.Message},failed to fetch student data");
-            }
-        }
+        //[HttpGet("StudentData")]
+        //public async Task<ActionResult<List<Student>>> GetStudentDetails()
+        //{
+        //    List<string> studentList = new List<string>();
+        //    try
+        //    {
+        //        var studentsData = await _applicationDBContext.Students.ToListAsync();
+        //        return Ok(studentsData);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new ApplicationException($"{ex.Message},failed to fetch student data");
+        //    }
+        //}
     }
 }
